@@ -25,7 +25,7 @@ public class ProfileInfoApplication {
 	
 	@GetMapping("/getProfiles")
 	public Collection<Profile> getProfileInfo() {
-		return profileRepository.findAll();
+		 return profileRepository.findAll();
 	}
     
 	@GetMapping("/getProfiles/{id}")
