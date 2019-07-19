@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @EnableAutoConfiguration
-public class  ProfileInfoApplication {
+public class ProfileInfoApplication {
 
 	@Autowired
 	ProfileRepository profileRepository;
