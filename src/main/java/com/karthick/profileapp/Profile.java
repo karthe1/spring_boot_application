@@ -1,4 +1,4 @@
-package com.karthick.controllers;
+package com.karthick.profileapp;
 
 import java.util.Date;
 

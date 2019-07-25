@@ -1,4 +1,4 @@
-package com.karthick.controllers;
+package com.karthick.profileapp;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
