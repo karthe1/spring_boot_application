@@ -23,17 +23,34 @@ public class ProfileContollers {
 	ProfileRepository profileRepository;
 	
 	@GetMapping("/getProfiles")
+	/**
+	 * Resource URI for retrieving all the profile information. 
+	 * 
+	 * @return
+	 */
 	public Collection<Profile> getProfileInfo() {
 		return profileRepository.findAll();
 	}
     
 	@GetMapping("/getProfiles/{id}")
+	/**
+	 * Resource URI for retrieving specified the profile information based on profile ID.
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public Profile getProfileInfoById(@PathVariable String id) {
 		Long blogId = Long.parseLong(id);
 		return profileRepository.findOne(blogId);
 	}
     
 	@PostMapping("/addProfile")
+	/**
+	 * Resource URI for creating a profile information. 
+	 * 
+	 * @param profileInfo
+	 * @return
+	 */
 	public Profile addProfileInfo(@RequestBody Map<String, String> profileInfo) {
 
 		String profileName = profileInfo.get("profileName");
@@ -44,6 +61,13 @@ public class ProfileContollers {
 	}
     
 	@PutMapping("/updateProfile/{id}")
+	/**
+	 * Resource URI for updating a profile information.
+	 * 
+	 * @param id
+	 * @param profileInfo
+	 * @return
+	 */
 	public Profile update(@PathVariable String id, @RequestBody Map<String, String> profileInfo) {
 		Long blogId = Long.parseLong(id);
 		// getting blog
@@ -62,6 +86,12 @@ public class ProfileContollers {
 	}
 
 	@DeleteMapping("/deleteProfile/{id}")
+	/**
+	 * Resource URI for deleting a profile information.
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public boolean delete(@PathVariable String id) {
 		Long blogId = Long.parseLong(id);
 		profileRepository.delete(blogId);
