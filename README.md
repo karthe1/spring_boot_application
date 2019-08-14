@@ -45,7 +45,7 @@
   
  * If both the containers are up and running, expose below REST calls using POSTMAN REST client from localhost.
 
-      GET: http://localhost:8080/addProfile
+      POST: http://localhost:8080/addProfile
 
        {
           "profileName": "karthick_rajendran",
