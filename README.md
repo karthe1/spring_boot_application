@@ -1,6 +1,7 @@
 # project description
 
 * This is a spring boot application that exposes REST APIs for performing CRUD operations in MySQL Database.
+* Added HTTP basic authentication for all REST APIs using spring security.
 * The application has been dockerized and deployed on the docker-machine.
 * We made the two containers (Container running with Spring boot app & Container running with MySQL Database) to be communicated with each other.
 
