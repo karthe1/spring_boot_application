@@ -3,6 +3,7 @@ package com.karthick.profileapp;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,36 +23,36 @@ public class ProfileContollers {
 	@Autowired
 	ProfileRepository profileRepository;
 	
-	@GetMapping("/getProfiles")
+	@GetMapping("/readProfiles")
 	/**
 	 * Resource URI for retrieving all the profile information. 
 	 * 
 	 * @return
 	 */
-	public Collection<Profile> getProfileInfo() {
+	public Collection<Profile> readAllProfile() {
 		return profileRepository.findAll();
 	}
     
-	@GetMapping("/getProfiles/{id}")
+	@GetMapping("/readProfile/{id}")
 	/**
 	 * Resource URI for retrieving specified the profile information based on profile ID.
 	 * 
 	 * @param id
 	 * @return
 	 */
-	public Profile getProfileInfoById(@PathVariable String id) {
+	public Optional<Profile> readProfile(@PathVariable String id) {
 		Long blogId = Long.parseLong(id);
-		return profileRepository.findOne(blogId);
+		return profileRepository.findById(blogId);
 	}
     
-	@PostMapping("/addProfile")
+	@PostMapping("/createProfile")
 	/**
 	 * Resource URI for creating a profile information. 
 	 * 
 	 * @param profileInfo
 	 * @return
 	 */
-	public Profile addProfileInfo(@RequestBody Map<String, String> profileInfo) {
+	public Profile createProfile(@RequestBody Map<String, String> profileInfo) {
 
 		String profileName = profileInfo.get("profileName");
 		String firstName = profileInfo.get("firstName");
@@ -68,21 +69,22 @@ public class ProfileContollers {
 	 * @param profileInfo
 	 * @return
 	 */
-	public Profile update(@PathVariable String id, @RequestBody Map<String, String> profileInfo) {
+	public Profile updateProfile(@PathVariable String id, @RequestBody Map<String, String> profileInfo) {
 		Long blogId = Long.parseLong(id);
 		// getting blog
-		Profile profile = profileRepository.findOne(blogId);
+		Optional<Profile> profile = profileRepository.findById(blogId);
+		
 		Set<Entry<String, String>> s = profileInfo.entrySet();
 		for (Entry<String, String> entry : s) {
 			if (entry.getKey().equals("profileName")) {
-				profile.setProfileName(profileInfo.get("profileName"));
+				profile.get().setProfileName(profileInfo.get("profileName"));
 			} else if (entry.getKey().equals("firstName")) {
-				profile.setFirstName(profileInfo.get("firstName"));
+				profile.get().setFirstName(profileInfo.get("firstName"));
 			} else if (entry.getKey().equals("lastName")) {
-				profile.setLastName(profileInfo.get("lastName"));
+				profile.get().setLastName(profileInfo.get("lastName"));
 			}
 		}
-		return profileRepository.save(profile);
+		return profileRepository.save(profile.get());
 	}
 
 	@DeleteMapping("/deleteProfile/{id}")
@@ -92,9 +94,9 @@ public class ProfileContollers {
 	 * @param id
 	 * @return
 	 */
-	public boolean delete(@PathVariable String id) {
+	public boolean deleteProfile(@PathVariable String id) {
 		Long blogId = Long.parseLong(id);
-		profileRepository.delete(blogId);
+		profileRepository.deleteById(blogId);
 		return true;
 	}
 
